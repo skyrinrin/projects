@@ -31,8 +31,6 @@ class _CircularTimerState extends State<CircularTimer>
 
   @override
   Widget build(BuildContext context) {
-    final Application app = Application();
-
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, child) {
@@ -41,9 +39,9 @@ class _CircularTimerState extends State<CircularTimer>
           painter: TimerPainter(progress),
           child: Center(
             child: TimerValue(
-              time: '${app.getProgressTime(widget.duration.inSeconds)}',
+              // time: '${(widget.duration.inSeconds)}',
               // time: '${) (widget.duration.inSeconds * progress).round()}',
-              // time: '${(widget.duration.inSeconds * progress).round()}',
+              time: (widget.duration.inSeconds * progress).round(),
             ),
             // child: Text(
             //   '${(widget.duration.inSeconds * progress).round()} s',
