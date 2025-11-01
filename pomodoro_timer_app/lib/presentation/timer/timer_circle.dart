@@ -1,6 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:pomodoro_timer_app/application.dart';
+import 'package:pomodoro_timer_app/application/application.dart';
 import 'package:pomodoro_timer_app/presentation/timer/timer_value.dart';
 
 class CircularTimer extends StatefulWidget {

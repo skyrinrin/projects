@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro_timer_app/application.dart';
+import 'package:pomodoro_timer_app/application/application.dart';
 
 class TimerValue extends StatefulWidget {
   const TimerValue({super.key, required this.time});
