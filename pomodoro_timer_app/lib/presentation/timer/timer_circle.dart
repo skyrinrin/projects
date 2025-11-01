@@ -1,18 +1,20 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pomodoro_timer_app/application/application.dart';
 import 'package:pomodoro_timer_app/presentation/timer/timer_value.dart';
 
-class CircularTimer extends StatefulWidget {
+class CircularTimer extends ConsumerStatefulWidget {
+  //11/01 ここから始める タイマーの円と文字列部分にProviderの情報を登録する
   final Duration duration;
 
   const CircularTimer({super.key, required this.duration});
 
   @override
-  State<CircularTimer> createState() => _CircularTimerState();
+  ConsumerState<CircularTimer> createState() => _CircularTimerState();
 }
 
-class _CircularTimerState extends State<CircularTimer>
+class _CircularTimerState extends ConsumerState<CircularTimer>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 

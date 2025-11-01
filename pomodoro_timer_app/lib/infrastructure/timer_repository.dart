@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:nativewrappers/_internal/vm/lib/internal_patch.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pomodoro_timer_app/application/timer_state.dart';
 

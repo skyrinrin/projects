@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pomodoro_timer_app/application/timer_notifier.dart';
+import 'package:pomodoro_timer_app/provider/provider.dart';
 
-class TimerButtons extends StatefulWidget {
+class TimerButtons extends ConsumerStatefulWidget {
   const TimerButtons({super.key});
 
   @override
-  State<TimerButtons> createState() => _TimerButtonsState();
+  ConsumerState<TimerButtons> createState() => _TimerButtonsState();
 }
 
-class _TimerButtonsState extends State<TimerButtons>
+class _TimerButtonsState extends ConsumerState<TimerButtons>
     with SingleTickerProviderStateMixin {
   bool isRunning = false;
 
   @override
   Widget build(BuildContext context) {
+    // final timerState = ref.watch(timerProvider);
+    final timerNotifier = ref.read(timerProvider.notifier);
+
     const duration = Duration(milliseconds: 500);
 
     return AnimatedSwitcher(
@@ -23,17 +29,21 @@ class _TimerButtonsState extends State<TimerButtons>
         return FadeTransition(opacity: animation, child: child);
       },
       child: isRunning
-          ? _buildStopButton(duration)
-          : _buildPlayResetButtons(duration),
+          ? _buildStopButton(duration, timerNotifier)
+          : _buildPlayResetButtons(duration, timerNotifier),
     );
   }
 
   /// ------------------------------
   /// 再生中（停止ボタン）
   /// ------------------------------
-  Widget _buildStopButton(Duration duration) {
+  Widget _buildStopButton(Duration duration, TimerNotifier timerNotifier) {
     return GestureDetector(
-      onTap: () => setState(() => isRunning = false),
+      onTap: () => setState(() {
+        isRunning = false;
+        //ここで停止処理を呼び出す
+        timerNotifier.stop();
+      }),
       child: AnimatedContainer(
         duration: duration,
         curve: Curves.easeInOut,
@@ -66,7 +76,10 @@ class _TimerButtonsState extends State<TimerButtons>
   /// ------------------------------
   /// 停止中（再生＋リセットボタン）
   /// ------------------------------
-  Widget _buildPlayResetButtons(Duration duration) {
+  Widget _buildPlayResetButtons(
+    Duration duration,
+    TimerNotifier timerNotifier,
+  ) {
     return SizedBox(
       width: 336,
       height: 60,
@@ -81,7 +94,10 @@ class _TimerButtonsState extends State<TimerButtons>
               // label: "▶ 再生",
               mode: true,
               color: Color(0xFF3886FD),
-              onTap: () => setState(() => isRunning = true),
+              onTap: () => setState(() {
+                isRunning = true;
+                timerNotifier.start();
+              }),
             ),
           ),
           AnimatedPositioned(
@@ -93,6 +109,7 @@ class _TimerButtonsState extends State<TimerButtons>
               mode: false,
               color: Color(0xFFCDCDCD),
               onTap: () {
+                timerNotifier.reset();
                 ScaffoldMessenger.of(
                   context,
                 ).showSnackBar(const SnackBar(content: Text('リセットしました')));

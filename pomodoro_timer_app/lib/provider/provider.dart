@@ -6,9 +6,7 @@ import '../infrastructure/timer_repository.dart';
 
 final timerRepositoryProvider = Provider((ref) => TimerRepository());
 
-final timerNotifierProvider = StateNotifierProvider<TimerNotifier, TimerState>((
-  ref,
-) {
+final timerProvider = StateNotifierProvider<TimerNotifier, TimerState>((ref) {
   final repo = ref.watch(timerRepositoryProvider);
   return TimerNotifier(repo);
 });
