@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class TimerScreen extends ConsumerWidget {
-  const TimerScreen({super.key});
+class PointScreen extends ConsumerWidget {
+  const PointScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [Text('タイマー')],
+      children: [Text('ポイント')],
     );
   }
 }
