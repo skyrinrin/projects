@@ -18,6 +18,8 @@ class _TimerButtonsState extends ConsumerState<TimerButtons>
   Widget build(BuildContext context) {
     // final timerState = ref.watch(timerProvider);
     final timerNotifier = ref.read(timerProvider.notifier);
+    final timerState = ref.watch(timerProvider);
+    isRunning = timerState.isRunning;
 
     const duration = Duration(milliseconds: 500);
 

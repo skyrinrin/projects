@@ -45,6 +45,7 @@ class MainScreenState extends ConsumerState<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(backgroundColor: Colors.white), //ここにいろいろする
       backgroundColor: Colors.white,
       body: SafeArea(child: _screens[_currentIndex]),
       bottomNavigationBar: BottomNavigationBar(
