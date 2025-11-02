@@ -63,6 +63,17 @@ class MainScreenState extends ConsumerState<MainScreen> {
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'アカウント'),
         ],
       ),
+      floatingActionButton: _currentIndex == 2
+          ? FloatingActionButton(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+              onPressed: null,
+
+              child: Icon(Icons.add, color: Colors.white, size: 32),
+              backgroundColor: Color(0xFF51BBFD),
+            )
+          : null,
     );
   }
 }
