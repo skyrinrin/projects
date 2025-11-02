@@ -3,19 +3,33 @@ import 'dart:convert';
 
 class TimerState {
   final int remainingSeconds;
+  final int totalSeconds;
   final bool isRunning;
 
-  const TimerState({required this.remainingSeconds, required this.isRunning});
+  const TimerState({
+    required this.remainingSeconds,
+    required this.totalSeconds,
+    required this.isRunning,
+  });
 
   /// 初期状態（例：25分）
   factory TimerState.initial() {
-    return const TimerState(remainingSeconds: 1500, isRunning: false);
+    return const TimerState(
+      remainingSeconds: 1500,
+      totalSeconds: 1500,
+      isRunning: false,
+    );
   }
 
   /// 状態を部分的に更新（immutableな書き方）
-  TimerState copyWith({int? remainingSeconds, bool? isRunning}) {
+  TimerState copyWith({
+    int? remainingSeconds,
+    int? totalSeconds,
+    bool? isRunning,
+  }) {
     return TimerState(
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
+      totalSeconds: totalSeconds ?? this.totalSeconds,
       isRunning: isRunning ?? this.isRunning,
     );
   }
@@ -28,6 +42,7 @@ class TimerState {
   /// JSONから復元（読み込み用）
   factory TimerState.fromJson(Map<String, dynamic> json) {
     return TimerState(
+      totalSeconds: json['totalSeconds'] ?? 1500,
       remainingSeconds: json['remainingSeconds'] ?? 1500,
       isRunning: json['isRunning'] ?? false,
     );
@@ -43,5 +58,5 @@ class TimerState {
 
   @override
   String toString() =>
-      'TimerState(remainingSeconds: $remainingSeconds, isRunning: $isRunning)';
+      'TimerState(remainingSeconds: $remainingSeconds, , totalSeconds: $totalSeconds, isRunning: $isRunning)';
 }

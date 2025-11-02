@@ -6,17 +6,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SingleChildScrollView(
-      child: Column(
-        children: [
-          // Center(child: TimerBody()),
-          SizedBox(height: 120),
-          Center(
-            child: SizedBox(height: 330, width: 330, child: CircularTimer()),
-          ),
-          SizedBox(height: 64),
-          TimerButtons(),
-        ],
-      ),
+      child: Column(children: [Text('ホームページ')]),
     );
   }
 }

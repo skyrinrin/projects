@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pomodoro_timer_app/homepage.dart';
+import 'package:pomodoro_timer_app/main_screen.dart';
+import 'package:pomodoro_timer_app/presentation/screen/timer_screen.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -11,6 +12,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MainScreen();
+    return MaterialApp(
+      theme: ThemeData(splashColor: Color(0xFF70CFFF)),
+      debugShowCheckedModeBanner: false,
+      home: MainScreen(),
+    );
   }
 }
