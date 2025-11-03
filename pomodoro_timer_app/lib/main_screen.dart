@@ -7,6 +7,7 @@ import 'package:pomodoro_timer_app/presentation/screen/point_screen.dart';
 import 'package:pomodoro_timer_app/presentation/screen/report_screen.dart';
 import 'package:pomodoro_timer_app/presentation/screen/select_timer_screen.dart';
 import 'package:pomodoro_timer_app/presentation/screen/timer_screen.dart';
+import 'package:pomodoro_timer_app/presentation/timer_select/timer_editor.dart';
 import 'package:pomodoro_timer_app/provider/provider.dart';
 
 class MainScreen extends ConsumerStatefulWidget {
@@ -68,7 +69,14 @@ class MainScreenState extends ConsumerState<MainScreen> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
               ),
-              onPressed: null,
+              onPressed: () async {
+                await showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.white,
+                  builder: (context) => TimerEditor(),
+                );
+              },
 
               child: Icon(Icons.add, color: Colors.white, size: 32),
               backgroundColor: Color(0xFF51BBFD),

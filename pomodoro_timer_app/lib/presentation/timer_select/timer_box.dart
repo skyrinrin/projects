@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pomodoro_timer_app/presentation/timer_select/timer_circle_mini.dart';
+import 'package:pomodoro_timer_app/presentation/timer_select/timer_circle_static.dart';
+import 'package:pomodoro_timer_app/provider/provider.dart';
 
 class TimerBox extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final color = Colors.amber;
     return Container(
       width: 180,
       height: 160,
@@ -18,7 +20,11 @@ class TimerBox extends ConsumerWidget {
           Center(
             child: CustomPaint(
               size: const Size(100, 100),
-              painter: TimerMiniPainter(),
+              painter: TimerStaticPainter(
+                radius: 54,
+                strokeWidth: 10,
+                color: color,
+              ),
             ),
           ),
           Center(

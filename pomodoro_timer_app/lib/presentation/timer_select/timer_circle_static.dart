@@ -18,20 +18,29 @@ import 'package:flutter/material.dart';
 //   }
 // }
 
-class TimerMiniPainter extends CustomPainter {
+class TimerStaticPainter extends CustomPainter {
+  double radius; //ここを柔軟に対応できるようにする
+  double strokeWidth;
+  Color color;
+
+  TimerStaticPainter({
+    required this.radius,
+    required this.strokeWidth,
+    required this.color,
+  });
+
   @override
   void paint(Canvas canvas, Size size) {
     final center = size.center(Offset.zero);
-    final radius = 50; //ここを柔軟に対応できるようにする
 
     final circlePaint = Paint()
-      ..color = const Color(0xFFB7E9FF)
+      ..color = color
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 10;
+      ..strokeWidth = strokeWidth;
 
-    canvas.drawCircle(center, 58, circlePaint);
+    canvas.drawCircle(center, radius, circlePaint);
   }
 
   @override
-  bool shouldRepaint(TimerMiniPainter oldDelegate) => false;
+  bool shouldRepaint(TimerStaticPainter oldDelegate) => false;
 }
