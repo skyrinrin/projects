@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hooks_riverpod/legacy.dart';
+import 'package:pomodoro_timer_app/domain/timer_model.dart';
+import 'package:pomodoro_timer_app/infrastructure/timer_model_repositroy.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../application/timer_notifier.dart';
 import 'package:pomodoro_timer_app/application/timer_state.dart';
-import '../infrastructure/timer_repository.dart';
+import '../infrastructure/timer_state_repository.dart';
 
-final timerRepositoryProvider = Provider((ref) => TimerRepository());
+final sharedPrefsProvider = Provider<SharedPreferences>((ref) {
+  throw UnimplementedError();
+});
+
+final timerStateRepositoryProvider = Provider((ref) => TimerStateRepository());
+final timerModelRepositoryProvider = Provider<TimerModelRepositroy>((ref) {
+  final prefs = ref.watch(sharedPrefsProvider);
+  return TimerModelRepositroy(prefs);
+});
 
 final timerProvider = StateNotifierProvider<TimerNotifier, TimerState>((ref) {
-  final repo = ref.watch(timerRepositoryProvider);
+  final repo = ref.watch(timerStateRepositoryProvider);
   return TimerNotifier(repo);
 });
 
@@ -63,4 +74,49 @@ final mainColorPickerValueProvider =
     NotifierProvider<mainColorPickerNotifier, Color>(
       mainColorPickerNotifier.new,
     );
-//
+
+//タイマー追加処理
+class TimerController extends Notifier<void> {
+  @override
+  void build() {}
+
+  Future<void> saveTimer() async {
+    final mainTime = ref.read(mainTimePickerValueProvider);
+    final subTime = ref.read(subTimePickerValueProvider);
+    final color = ref.read(mainColorPickerValueProvider);
+
+    final timer = TimerModel(
+      mainTime: mainTime,
+      subTime: subTime,
+      color: color,
+    );
+
+    final repo = ref.read(timerModelRepositoryProvider);
+    await repo.add(timer);
+
+    //UI反映用
+    ref.read(timerListProvider.notifier).addTimer(timer);
+  }
+}
+
+final TimerControllerProvider = NotifierProvider<TimerController, void>(
+  TimerController.new,
+);
+
+//タイマーリスト 使うかわからん
+class modelListNotifier extends Notifier<List<TimerModel>> {
+  @override
+  List<TimerModel> build() {
+    final repo = ref.read(timerModelRepositoryProvider);
+    return repo.loadTimerModelList();
+  }
+
+  //UI反映用
+  void addTimer(TimerModel timer) {
+    state = [...state, timer];
+  }
+}
+
+final timerListProvider = NotifierProvider<modelListNotifier, List<TimerModel>>(
+  modelListNotifier.new,
+);

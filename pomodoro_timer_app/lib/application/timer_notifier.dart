@@ -2,10 +2,10 @@ import 'dart:async';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hooks_riverpod/legacy.dart';
 import 'package:pomodoro_timer_app/application/timer_state.dart';
-import '../infrastructure/timer_repository.dart';
+import '../infrastructure/timer_state_repository.dart';
 
 class TimerNotifier extends StateNotifier<TimerState> {
-  final TimerRepository repository;
+  final TimerStateRepository repository;
   Timer? _timer;
 
   TimerNotifier(this.repository) : super(TimerState.initial());

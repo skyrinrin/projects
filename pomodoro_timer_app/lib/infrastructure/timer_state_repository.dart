@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pomodoro_timer_app/application/timer_state.dart';
 
-class TimerRepository {
+class TimerStateRepository {
   static const _key = 'timer_state';
 
   /// 状態を保存

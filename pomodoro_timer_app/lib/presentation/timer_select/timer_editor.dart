@@ -12,9 +12,10 @@ import 'package:pomodoro_timer_app/provider/provider.dart';
 class TimerEditor extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final editorMode = ref.watch(editorModeProvider);
-    Widget selectButton() {
+    Widget addButton() {
       return GestureDetector(
-        onTap: () {
+        onTap: () async {
+          await ref.read(TimerControllerProvider.notifier).saveTimer();
           Navigator.of(context).pop();
         },
         child: Container(
@@ -99,8 +100,8 @@ class TimerEditor extends ConsumerWidget {
               ),
 
               SizedBox(height: 60),
-              selectButton(),
-              SizedBox(height: 300),
+              addButton(),
+              SizedBox(height: 200),
             ],
           ),
         ),

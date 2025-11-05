@@ -15,7 +15,7 @@ class TimerBox extends ConsumerWidget {
         borderRadius: BorderRadius.circular(10),
         border: Border.all(
           width: 1,
-          color: const Color.fromARGB(255, 116, 115, 115),
+          color: const Color.fromARGB(255, 151, 150, 150),
         ),
       ),
       child: Stack(
