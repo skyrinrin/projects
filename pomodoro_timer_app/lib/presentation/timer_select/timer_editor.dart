@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pomodoro_timer_app/presentation/timer/timer_circle.dart';
 import 'package:pomodoro_timer_app/presentation/timer_select/color_picker.dart';
+import 'package:pomodoro_timer_app/presentation/timer_select/pomodoro_toggle.dart';
 import 'package:pomodoro_timer_app/presentation/timer_select/time_picker.dart';
 import 'package:pomodoro_timer_app/presentation/timer_select/timer_circle_static.dart';
 import 'package:pomodoro_timer_app/provider/provider.dart';
 
 class TimerEditor extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
+    final editorMode = ref.watch(editorModeProvider);
     Widget selectButton() {
       return GestureDetector(
         onTap: () {
@@ -58,15 +60,43 @@ class TimerEditor extends ConsumerWidget {
                 painter: TimerStaticPainter(
                   radius: 120,
                   strokeWidth: 18,
-                  color: ref.watch(maincolorPickerValueProvider),
+                  color: editorMode
+                      ? Color.fromARGB(255, 159, 241, 203)
+                      : ref.watch(mainColorPickerValueProvider),
                 ),
-                child: ShowTimeBox(),
+                child: ShowTimeBox(
+                  notifierProvider: editorMode
+                      ? mainTimePickerValueProvider
+                      : subTimePickerValueProvider,
+                ),
               ),
 
               SizedBox(height: 132),
-              TimePicker(),
+              TimePicker(
+                notifierProvider: editorMode
+                    ? mainTimePickerValueProvider
+                    : subTimePickerValueProvider,
+              ),
               SizedBox(height: 32),
-              Align(alignment: Alignment.centerLeft, child: ColorPicker()),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Stack(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Visibility(
+                        visible: !editorMode,
+                        child: ColorPicker(),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: PomodoroToggle(),
+                    ),
+                  ],
+                ),
+              ),
+
               SizedBox(height: 60),
               selectButton(),
             ],

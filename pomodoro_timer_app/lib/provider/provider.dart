@@ -12,9 +12,56 @@ final timerProvider = StateNotifierProvider<TimerNotifier, TimerState>((ref) {
   return TimerNotifier(repo);
 });
 
-// final showTimeValueProvider = StateProvider<String>((ref) => '00:00');
-final timePickerValueProvider = StateProvider<Duration>((ref) => Duration());
-final maincolorPickerValueProvider = StateProvider<Color>(
-  (ref) => Color(0xFFB7E9FF),
+//編集画面のモード
+class editorModeNotifier extends Notifier<bool> {
+  @override
+  bool build() => false;
+  void changeMode(bool newValue) {
+    state = newValue;
+    print('今の状態: $state');
+  }
+}
+
+final editorModeProvider = NotifierProvider<editorModeNotifier, bool>(
+  editorModeNotifier.new,
 );
+
+//時間選択ドラムロールの値(メインタイマー)
+
+class timePickerNotifier extends Notifier<Duration> {
+  @override
+  Duration build() => Duration();
+  void selectTime(Duration time) {
+    state = time;
+  }
+}
+
+final mainTimePickerValueProvider =
+    NotifierProvider<timePickerNotifier, Duration>(timePickerNotifier.new);
+
+//時間選択ドラムロールの値(ポモドーロタイマー)
+// class subTimePickerNotifier extends Notifier<Duration> {
+//   @override
+//   Duration build() => Duration();
+//   void selectTime(Duration time) {
+//     state = time;
+//   }
+// }
+
+final subTimePickerValueProvider =
+    NotifierProvider<timePickerNotifier, Duration>(timePickerNotifier.new);
+
+//タイマーメインカラー
+class mainColorPickerNotifier extends Notifier<Color> {
+  @override
+  Color build() => const Color(0xFFB7E9FF); //初期色
+  void selectColor(Color color) {
+    state = color;
+  }
+}
+
+final mainColorPickerValueProvider =
+    NotifierProvider<mainColorPickerNotifier, Color>(
+      mainColorPickerNotifier.new,
+    );
 //

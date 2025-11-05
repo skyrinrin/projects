@@ -63,7 +63,7 @@ class ColorPicker extends ConsumerWidget {
   Widget colorBox(Color color, WidgetRef ref) {
     return GestureDetector(
       onTap: () {
-        ref.read(maincolorPickerValueProvider.notifier).state = color;
+        ref.read(mainColorPickerValueProvider.notifier).selectColor(color);
       },
       child: Container(
         margin: EdgeInsets.only(bottom: 8, right: 8),
@@ -76,7 +76,7 @@ class ColorPicker extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final _color = ref.watch(maincolorPickerValueProvider);
+    final _color = ref.watch(mainColorPickerValueProvider);
     return Container(
       // padding: EdgeInsets.all(0),
       // height: 85,
