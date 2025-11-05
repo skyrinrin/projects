@@ -13,7 +13,10 @@ class TimerBox extends ConsumerWidget {
       height: 160,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(width: 1),
+        border: Border.all(
+          width: 1,
+          color: const Color.fromARGB(255, 116, 115, 115),
+        ),
       ),
       child: Stack(
         children: [
@@ -37,7 +40,11 @@ class TimerBox extends ConsumerWidget {
             alignment: Alignment.topRight,
             child: IconButton(
               onPressed: null,
-              icon: Icon(Icons.more_vert, color: Colors.black, size: 24),
+              icon: Icon(
+                Icons.more_vert,
+                color: const Color.fromARGB(255, 0, 0, 0),
+                size: 24,
+              ),
             ),
           ),
         ],

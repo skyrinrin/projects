@@ -8,7 +8,7 @@ class PomodoroToggle extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final value = ref.watch(editorModeProvider);
     return Container(
-      height: 80,
+      height: 82,
       width: 128,
       // color: Colors.red,
       child: Column(

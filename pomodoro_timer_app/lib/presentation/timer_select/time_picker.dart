@@ -33,7 +33,7 @@ class TimePicker extends ConsumerWidget {
     final duration = ref.watch(notifierProvider);
     return CupertinoTimerPicker(
       //なぜか滑らかに動かない
-      key: ValueKey(duration),
+      // key: ValueKey(duration),
       onTimerDurationChanged: (Duration newDuration) {
         ref.read(notifierProvider.notifier).selectTime(newDuration);
       },

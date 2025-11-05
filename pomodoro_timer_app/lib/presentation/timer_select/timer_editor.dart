@@ -41,7 +41,7 @@ class TimerEditor extends ConsumerWidget {
     return FractionallySizedBox(
       // alignment: Alignment.topLeft,
       // heightFactor: 0.9,
-      heightFactor: 0.95,
+      heightFactor: 0.93,
       widthFactor: 1,
       child: SingleChildScrollView(
         child: Container(
@@ -73,6 +73,7 @@ class TimerEditor extends ConsumerWidget {
 
               SizedBox(height: 132),
               TimePicker(
+                key: ValueKey(editorMode),
                 notifierProvider: editorMode
                     ? mainTimePickerValueProvider
                     : subTimePickerValueProvider,
@@ -99,6 +100,7 @@ class TimerEditor extends ConsumerWidget {
 
               SizedBox(height: 60),
               selectButton(),
+              SizedBox(height: 300),
             ],
           ),
         ),

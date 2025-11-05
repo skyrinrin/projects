@@ -81,6 +81,7 @@ class ColorPicker extends ConsumerWidget {
       // padding: EdgeInsets.all(0),
       // height: 85,
       // width: 60,
+      height: 82,
       child: Column(
         children: [
           Text('カラー', style: TextStyle(fontSize: 20)),

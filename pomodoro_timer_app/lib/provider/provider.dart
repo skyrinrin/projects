@@ -18,7 +18,6 @@ class editorModeNotifier extends Notifier<bool> {
   bool build() => false;
   void changeMode(bool newValue) {
     state = newValue;
-    print('今の状態: $state');
   }
 }
 
