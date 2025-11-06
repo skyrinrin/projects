@@ -44,6 +44,10 @@ class timePickerNotifier extends Notifier<Duration> {
   void selectTime(Duration time) {
     state = time;
   }
+
+  void clearValue() {
+    state = Duration();
+  }
 }
 
 final mainTimePickerValueProvider =
@@ -67,6 +71,10 @@ class mainColorPickerNotifier extends Notifier<Color> {
   Color build() => const Color(0xFFB7E9FF); //初期色
   void selectColor(Color color) {
     state = color;
+  }
+
+  void clearValue() {
+    state = Color(0xFFB7E9FF);
   }
 }
 
@@ -96,6 +104,10 @@ class TimerController extends Notifier<void> {
 
     //UI反映用
     ref.read(timerListProvider.notifier).addTimer(timer);
+
+    ref.read(mainTimePickerValueProvider.notifier).clearValue();
+    ref.read(subTimePickerValueProvider.notifier).clearValue();
+    ref.read(mainColorPickerValueProvider.notifier).clearValue();
   }
 }
 
@@ -103,7 +115,7 @@ final TimerControllerProvider = NotifierProvider<TimerController, void>(
   TimerController.new,
 );
 
-//タイマーリスト 使うかわからん
+//タイマーリスト
 class modelListNotifier extends Notifier<List<TimerModel>> {
   @override
   List<TimerModel> build() {

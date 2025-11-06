@@ -22,7 +22,7 @@ class TimerModelRepositroy {
   Future<void> saveTimerModelList(List<TimerModel> models) async {
     final list = models.map((m) => jsonEncode(m.toJson())).toList();
     await prefs.setStringList(_key, list);
-    print('保存しました');
+    print('保存しました${prefs.getStringList(_key)}');
   }
 
   Future<void> add(TimerModel model) async {
