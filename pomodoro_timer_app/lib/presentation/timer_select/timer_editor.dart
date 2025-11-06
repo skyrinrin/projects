@@ -6,34 +6,13 @@ import 'package:pomodoro_timer_app/presentation/timer/timer_circle.dart';
 import 'package:pomodoro_timer_app/presentation/timer_select/color_picker.dart';
 import 'package:pomodoro_timer_app/presentation/timer_select/pomodoro_toggle.dart';
 import 'package:pomodoro_timer_app/presentation/timer_select/time_picker.dart';
+import 'package:pomodoro_timer_app/presentation/timer_select/timer_add_button.dart';
 import 'package:pomodoro_timer_app/presentation/timer_select/timer_circle_static.dart';
 import 'package:pomodoro_timer_app/provider/provider.dart';
 
 class TimerEditor extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final editorMode = ref.watch(editorModeProvider);
-    Widget addButton() {
-      return GestureDetector(
-        onTap: () async {
-          await ref.read(TimerControllerProvider.notifier).saveTimer();
-          Navigator.of(context).pop();
-        },
-        child: Container(
-          height: 60,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: Color(0xFF7B7B7B),
-            borderRadius: BorderRadius.circular(30),
-          ),
-          child: Center(
-            child: Text(
-              '追加',
-              style: TextStyle(fontSize: 18, color: Colors.white),
-            ),
-          ),
-        ),
-      );
-    }
 
     // final size = MediaQuery.of(context).size;
     // final height = size.height;
@@ -67,8 +46,11 @@ class TimerEditor extends ConsumerWidget {
                 ),
                 child: ShowTimeBox(
                   notifierProvider: editorMode
-                      ? mainTimePickerValueProvider
-                      : subTimePickerValueProvider,
+                      ? subTimePickerValueProvider
+                      : mainTimePickerValueProvider,
+                  // notifierProvider: editorMode
+                  //     ? mainTimePickerValueProvider
+                  //     : subTimePickerValueProvider,
                 ),
               ),
 
@@ -76,8 +58,11 @@ class TimerEditor extends ConsumerWidget {
               TimePicker(
                 key: ValueKey(editorMode),
                 notifierProvider: editorMode
-                    ? mainTimePickerValueProvider
-                    : subTimePickerValueProvider,
+                    ? subTimePickerValueProvider
+                    : mainTimePickerValueProvider,
+                // notifierProvider: editorMode
+                //     ? mainTimePickerValueProvider
+                //     : subTimePickerValueProvider,
               ),
               SizedBox(height: 32),
               Align(
@@ -100,7 +85,7 @@ class TimerEditor extends ConsumerWidget {
               ),
 
               SizedBox(height: 60),
-              addButton(),
+              TimerAddButton(),
               SizedBox(height: 200),
             ],
           ),

@@ -90,6 +90,9 @@ class TimerController extends Notifier<void> {
 
   Future<void> saveTimer() async {
     final mainTime = ref.read(mainTimePickerValueProvider);
+    // if (mainTime.inSeconds == 0) {
+    //   return;
+    // }
     final subTime = ref.read(subTimePickerValueProvider);
     final color = ref.read(mainColorPickerValueProvider);
 
@@ -108,6 +111,7 @@ class TimerController extends Notifier<void> {
     ref.read(mainTimePickerValueProvider.notifier).clearValue();
     ref.read(subTimePickerValueProvider.notifier).clearValue();
     ref.read(mainColorPickerValueProvider.notifier).clearValue();
+    ref.read(editorModeProvider.notifier).changeMode(false);
   }
 }
 
