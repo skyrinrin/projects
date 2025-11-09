@@ -10,6 +10,7 @@ class TimerModelRepositroy {
   TimerModelRepositroy(this.prefs);
 
   List<TimerModel> loadTimerModelList() {
+    // prefs.clear(); //絶対消す
     final list = prefs.getStringList(_key);
     if (list == null) return [];
     // return TimerModel.fromJson(jsonEncode(json));
@@ -29,5 +30,7 @@ class TimerModelRepositroy {
     final models = loadTimerModelList();
     models.add(model);
     await saveTimerModelList(models);
+    // //順番を変える
+    // final _list = loadTimerModelList();
   }
 }

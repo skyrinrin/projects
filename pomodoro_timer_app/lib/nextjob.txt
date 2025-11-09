@@ -4,3 +4,4 @@
 ・devicePreviewsパッケージを使ってレイアウトを調整
 
 ・application層をproviderに移行
+・全体的に色が薄くて見づらいかも

@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pomodoro_timer_app/application/timer_state.dart';
 
 class TimerStateRepository {
+  //どこで使うかわかんない
   static const _key = 'timer_state';
 
   /// 状態を保存
