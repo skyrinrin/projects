@@ -5,7 +5,7 @@ import 'package:pomodoro_timer_app/domain/timer_model.dart';
 import 'package:pomodoro_timer_app/presentation/screen/timer_screen.dart';
 import 'package:pomodoro_timer_app/main_screen.dart';
 import 'package:pomodoro_timer_app/presentation/timer_select/timer_box.dart';
-import 'package:pomodoro_timer_app/presentation/timer_select/timer_box2.dart';
+import 'package:pomodoro_timer_app/presentation/timer_select/timer_box.dart';
 import 'package:pomodoro_timer_app/provider/provider.dart';
 
 class SelectTimerScreen extends ConsumerWidget {
@@ -13,7 +13,11 @@ class SelectTimerScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final _timerList = ref.watch(timerListProvider);
-    return Container(
+    return
+    // SingleChildScrollView(
+    Container(
+      // color: Colors.amber,
+      // height: 1000,
       // padding: EdgeInsets.symmetric(horizontal: 16),
       margin: EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -29,20 +33,27 @@ class SelectTimerScreen extends ConsumerWidget {
             child: Text('タイマー'),
           ),
           //
-          Container(
-            height: 500,
+          // Container(
+          //   // height: _timerList.length * 180,
+          //   height: 100,
+          Expanded(
             child: GridView.builder(
+              // scrollDirection: Axis.vertical,
+              // shrinkWrap: true,
               itemCount: _timerList.length,
+              // shrinkWrap: true,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 12,
                 mainAxisSpacing: 12,
               ),
               itemBuilder: (context, index) {
-                return TimerBox2(timerModel: _timerList[index], key: key);
+                return TimerBox(timerModel: _timerList[index], key: key);
               },
+              // ),
             ),
           ),
+
           //
           // TimerBox2(
           //   timerModel: TimerModel(

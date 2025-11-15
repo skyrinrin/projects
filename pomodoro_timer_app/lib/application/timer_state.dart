@@ -2,49 +2,75 @@
 import 'dart:convert';
 
 class TimerState {
-  final int remainingSeconds;
-  final int totalSeconds;
+  final int mainRemainingSeconds;
+  final int mainTotalSeconds;
+  final int subRemainingSeconds;
+  final int subTotalSeconds;
   final bool isRunning;
+  final int count;
 
   const TimerState({
-    required this.remainingSeconds,
-    required this.totalSeconds,
+    required this.mainRemainingSeconds,
+    required this.mainTotalSeconds,
+    required this.subRemainingSeconds,
+    required this.subTotalSeconds,
     required this.isRunning,
+    required this.count,
   });
 
   /// 初期状態（例：25分）
   factory TimerState.initial() {
     return const TimerState(
-      remainingSeconds: 1500,
-      totalSeconds: 1500,
+      mainRemainingSeconds: 1500,
+      mainTotalSeconds: 1500,
+      subRemainingSeconds: 300,
+      subTotalSeconds: 300,
       isRunning: false,
+      count: 1,
     );
   }
 
   /// 状態を部分的に更新（immutableな書き方）
   TimerState copyWith({
-    int? remainingSeconds,
-    int? totalSeconds,
+    int? mainRemainingSeconds,
+    int? mainTotalSeconds,
+    int? subRemainingSeconds,
+    int? subTotalSeconds,
     bool? isRunning,
+    int? count,
   }) {
     return TimerState(
-      remainingSeconds: remainingSeconds ?? this.remainingSeconds,
-      totalSeconds: totalSeconds ?? this.totalSeconds,
+      mainRemainingSeconds: mainRemainingSeconds ?? this.mainRemainingSeconds,
+      mainTotalSeconds: mainTotalSeconds ?? this.mainTotalSeconds,
+      subRemainingSeconds: subRemainingSeconds ?? this.subRemainingSeconds,
+      subTotalSeconds: subTotalSeconds ?? this.subTotalSeconds,
       isRunning: isRunning ?? this.isRunning,
+      count: count ?? this.count,
     );
   }
 
   /// JSONに変換（保存用）
   Map<String, dynamic> toJson() {
-    return {'remainingSeconds': remainingSeconds, 'isRunning': isRunning};
+    return {
+      'remainingSeconds': mainRemainingSeconds, 'isRunning': isRunning,
+      'mainRemainingSeconds': mainRemainingSeconds,
+      'mainTotalSeconds': mainTotalSeconds,
+      'subRemainingSeconds': subRemainingSeconds,
+      'subTotalSeconds': subTotalSeconds,
+      'count': count,
+      // 'isRunning': isRunning
+    };
   }
 
   /// JSONから復元（読み込み用）
   factory TimerState.fromJson(Map<String, dynamic> json) {
     return TimerState(
-      totalSeconds: json['totalSeconds'] ?? 1500,
-      remainingSeconds: json['remainingSeconds'] ?? 1500,
+      mainTotalSeconds: json['totalSeconds'] ?? 1500,
+      mainRemainingSeconds: json['remainingSeconds'] ?? 1500,
+      subTotalSeconds: json['subTotalSeconds'] ?? 300,
+      subRemainingSeconds: json['subRemainingSeconds'] ?? 300,
       isRunning: json['isRunning'] ?? false,
+      count: json['count'] ?? 1,
     );
   }
 
@@ -58,5 +84,5 @@ class TimerState {
 
   @override
   String toString() =>
-      'TimerState(remainingSeconds: $remainingSeconds, , totalSeconds: $totalSeconds, isRunning: $isRunning)';
+      'TimerState(mainRemainingSeconds: $mainRemainingSeconds, , mainTotalSeconds: $mainTotalSeconds, subRemainingSeconds: $subRemainingSeconds, subTotalSeconds: $subTotalSeconds,isRunning: $isRunning, count: $count)';
 }

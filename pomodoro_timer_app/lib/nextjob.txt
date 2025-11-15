@@ -5,3 +5,5 @@
 
 ・application層をproviderに移行
 ・全体的に色が薄くて見づらいかも
+・推奨されてない文法を直す
+・applicationの中にpresentationなどの層が入っていて構造が変

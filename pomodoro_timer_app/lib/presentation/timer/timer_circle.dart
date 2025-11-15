@@ -2,6 +2,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pomodoro_timer_app/domain/timer_model.dart';
 // import 'package:pomodoro_timer_app/application/timer_provider.dart';
 import 'package:pomodoro_timer_app/provider/provider.dart';
 import 'package:pomodoro_timer_app/presentation/timer/timer_value.dart';
@@ -12,12 +13,15 @@ class CircularTimer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final timerState = ref.watch(timerProvider);
+    final timerModel = ref.watch(selectedTimerModelProvider);
 
-    final progress = timerState.remainingSeconds / 1500; // 25分基準
-    final remaining = timerState.remainingSeconds;
+    final progress =
+        timerState.mainRemainingSeconds /
+        timerState.mainTotalSeconds; // なぜかカクカク動く
+    final remaining = timerState.mainRemainingSeconds;
 
     return CustomPaint(
-      painter: TimerPainter(progress),
+      painter: TimerPainter(progress, Color(timerModel.color)),
       child: Center(child: TimerValue(time: remaining)),
     );
   }
@@ -25,7 +29,8 @@ class CircularTimer extends ConsumerWidget {
 
 class TimerPainter extends CustomPainter {
   final double progress;
-  TimerPainter(this.progress);
+  final Color color;
+  TimerPainter(this.progress, this.color);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -33,7 +38,7 @@ class TimerPainter extends CustomPainter {
     final radius = size.width / 2 - 11;
 
     final progressPaint = Paint()
-      ..color = const Color(0xFFB7E9FF)
+      ..color = color
       ..strokeWidth = 22
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;

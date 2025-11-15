@@ -31,7 +31,7 @@ class MainScreenState extends ConsumerState<MainScreen> {
     final _timerState = ref.watch(timerProvider);
     setState(() {
       if (index == 2 &&
-          _timerState.totalSeconds != _timerState.remainingSeconds) {
+          _timerState.mainTotalSeconds != _timerState.mainRemainingSeconds) {
         //現状ではタイマーが停止している状態でも遷移されない (タイマーが一度でも動いたかを確認しないといけない)
         _currentIndex = 5;
       } else {

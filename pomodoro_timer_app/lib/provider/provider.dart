@@ -20,8 +20,28 @@ final timerModelRepositoryProvider = Provider<TimerModelRepositroy>((ref) {
 
 final timerProvider = StateNotifierProvider<TimerNotifier, TimerState>((ref) {
   final repo = ref.watch(timerStateRepositoryProvider);
-  return TimerNotifier(repo);
+  final timerModel = ref.watch(selectedTimerModelProvider);
+  return TimerNotifier(repo, timerModel!);
 });
+
+//現在選ばれているタイマーのモデル
+class selectedTimerModelNotifier extends Notifier<TimerModel> {
+  @override
+  TimerModel build() => TimerModel(
+    mainTime: Duration(seconds: 1500),
+    subTime: Duration(seconds: 300),
+    color: const Color(0xFFB7E9FF),
+  );
+
+  void selectTimerModel(TimerModel model) {
+    state = model;
+  }
+}
+
+final selectedTimerModelProvider =
+    NotifierProvider<selectedTimerModelNotifier, TimerModel>(
+      selectedTimerModelNotifier.new,
+    );
 
 //編集画面のモード
 class editorModeNotifier extends Notifier<bool> {
