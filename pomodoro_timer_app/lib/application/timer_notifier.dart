@@ -42,14 +42,17 @@ class TimerNotifier extends StateNotifier<TimerState> {
   // Future<void> load() async {
   //   state = await repository.loadTimerState();
   // }
+  void resetTotal() {
+    state = state.copyWith(totalSeconds: 0);
+  }
 
   void start() {
     if (state.isRunning) return;
 
     //
-    state = state.mainRemainingSeconds > 0
-        ? state.copyWith(timerMode: true)
-        : state.copyWith(timerMode: false);
+    // state = state.mainRemainingSeconds > 0
+    //     ? state.copyWith(timerMode: true)
+    //     : state.copyWith(timerMode: false);
 
     if (state.timerMode) {
       _timer = Timer.periodic(const Duration(seconds: 1), (_) async {
@@ -79,6 +82,29 @@ class TimerNotifier extends StateNotifier<TimerState> {
     //
 
     state = state.copyWith(isRunning: true);
+    // repository.saveTimerState(state);
+  }
+
+  void end() {
+    _timer?.cancel();
+    //ここで通知処理と振動処理と音処理
+    if (state.subRemainingSeconds == 0) {
+      state = state.copyWith(
+        mainRemainingSeconds: timerModel.mainTime.inSeconds,
+        subRemainingSeconds: timerModel.subTime.inSeconds,
+        isRunning: false,
+        timerMode: true,
+      );
+      start();
+    } else if (state.mainRemainingSeconds == 0) {
+      state = state.copyWith(
+        subRemainingSeconds: timerModel.subTime.inSeconds,
+        isRunning: false,
+        timerMode: false,
+      );
+      start();
+    }
+
     // repository.saveTimerState(state);
   }
 

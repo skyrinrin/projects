@@ -28,7 +28,7 @@ final timerProvider = StateNotifierProvider<TimerNotifier, TimerState>((ref) {
 class selectedTimerModelNotifier extends Notifier<TimerModel> {
   @override
   TimerModel build() => TimerModel(
-    mainTime: Duration(seconds: 1500),
+    mainTime: Duration(seconds: 3670),
     subTime: Duration(seconds: 300),
     color: const Color(0xFFB7E9FF),
   );
