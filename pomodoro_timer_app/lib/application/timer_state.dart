@@ -2,62 +2,69 @@
 import 'dart:convert';
 
 class TimerState {
-  final int mainRemainingSeconds;
   final int mainTotalSeconds;
-  final int subRemainingSeconds;
+  final int mainRemainingSeconds;
   final int subTotalSeconds;
+  final int subRemainingSeconds;
   final bool isRunning;
-  final int count;
+  final bool timerMode;
+  final int totalSeconds;
 
   const TimerState({
-    required this.mainRemainingSeconds,
     required this.mainTotalSeconds,
-    required this.subRemainingSeconds,
+    required this.mainRemainingSeconds,
     required this.subTotalSeconds,
+    required this.subRemainingSeconds,
     required this.isRunning,
-    required this.count,
+    required this.timerMode,
+    required this.totalSeconds,
   });
 
   /// 初期状態（例：25分）
   factory TimerState.initial() {
     return const TimerState(
-      mainRemainingSeconds: 1500,
       mainTotalSeconds: 1500,
-      subRemainingSeconds: 300,
+      mainRemainingSeconds: 1500,
       subTotalSeconds: 300,
+      subRemainingSeconds: 300,
       isRunning: false,
-      count: 1,
+      timerMode: true,
+      totalSeconds: 0,
     );
   }
 
   /// 状態を部分的に更新（immutableな書き方）
   TimerState copyWith({
-    int? mainRemainingSeconds,
     int? mainTotalSeconds,
-    int? subRemainingSeconds,
+    int? mainRemainingSeconds,
     int? subTotalSeconds,
+    int? subRemainingSeconds,
     bool? isRunning,
-    int? count,
+    bool? timerMode,
+    int? totalSeconds,
   }) {
     return TimerState(
-      mainRemainingSeconds: mainRemainingSeconds ?? this.mainRemainingSeconds,
       mainTotalSeconds: mainTotalSeconds ?? this.mainTotalSeconds,
-      subRemainingSeconds: subRemainingSeconds ?? this.subRemainingSeconds,
+      mainRemainingSeconds: mainRemainingSeconds ?? this.mainRemainingSeconds,
       subTotalSeconds: subTotalSeconds ?? this.subTotalSeconds,
+      subRemainingSeconds: subRemainingSeconds ?? this.subRemainingSeconds,
       isRunning: isRunning ?? this.isRunning,
-      count: count ?? this.count,
+      timerMode: timerMode ?? this.timerMode,
+      totalSeconds: totalSeconds ?? this.totalSeconds,
     );
   }
 
   /// JSONに変換（保存用）
   Map<String, dynamic> toJson() {
     return {
-      'remainingSeconds': mainRemainingSeconds, 'isRunning': isRunning,
-      'mainRemainingSeconds': mainRemainingSeconds,
+      // 'remainingSeconds': mainRemainingSeconds, 'isRunning': isRunning,
       'mainTotalSeconds': mainTotalSeconds,
-      'subRemainingSeconds': subRemainingSeconds,
+      'mainRemainingSeconds': mainRemainingSeconds,
       'subTotalSeconds': subTotalSeconds,
-      'count': count,
+      'subRemainingSeconds': subRemainingSeconds,
+      'isRunning': isRunning,
+      'timerMode': timerMode,
+      'totalSeconds': totalSeconds,
       // 'isRunning': isRunning
     };
   }
@@ -70,7 +77,8 @@ class TimerState {
       subTotalSeconds: json['subTotalSeconds'] ?? 300,
       subRemainingSeconds: json['subRemainingSeconds'] ?? 300,
       isRunning: json['isRunning'] ?? false,
-      count: json['count'] ?? 1,
+      timerMode: json['timerMode'] ?? true,
+      totalSeconds: json['totalSeconds'] ?? 0,
     );
   }
 
@@ -84,5 +92,5 @@ class TimerState {
 
   @override
   String toString() =>
-      'TimerState(mainRemainingSeconds: $mainRemainingSeconds, , mainTotalSeconds: $mainTotalSeconds, subRemainingSeconds: $subRemainingSeconds, subTotalSeconds: $subTotalSeconds,isRunning: $isRunning, count: $count)';
+      'TimerState(mainTotalSeconds: $mainTotalSeconds, mainRemainingSeconds: $mainRemainingSeconds, subTotalSeconds: $subTotalSeconds, subRemainingSeconds: $subRemainingSeconds, isRunning: $isRunning, timerMode: $timerMode, totalSeconds: $totalSeconds)';
 }

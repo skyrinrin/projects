@@ -12,16 +12,16 @@ final sharedPrefsProvider = Provider<SharedPreferences>((ref) {
   throw UnimplementedError();
 });
 
-final timerStateRepositoryProvider = Provider((ref) => TimerStateRepository());
+// final timerStateRepositoryProvider = Provider((ref) => TimerStateRepository());
 final timerModelRepositoryProvider = Provider<TimerModelRepositroy>((ref) {
   final prefs = ref.watch(sharedPrefsProvider);
   return TimerModelRepositroy(prefs);
 });
 
 final timerProvider = StateNotifierProvider<TimerNotifier, TimerState>((ref) {
-  final repo = ref.watch(timerStateRepositoryProvider);
+  // final repo = ref.watch(timerStateRepositoryProvider);
   final timerModel = ref.watch(selectedTimerModelProvider);
-  return TimerNotifier(repo, timerModel!);
+  return TimerNotifier(timerModel);
 });
 
 //現在選ばれているタイマーのモデル
